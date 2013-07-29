@@ -126,3 +126,10 @@ a#validate:active {
     color: orange;
     text-align: center;
 }
+
+.footer label, .footer input {
+    vertical-align: top;
+    display: inline-block;
+    padding-right: 10px;
+    color: orange;
+}
