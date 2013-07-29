@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Mine Sweeper</title>
+    <!--<link href="/assets/pages.css" media="all" rel="stylesheet" type="text/css" />-->
+    <script src="vendor/jquery.js" type="text/javascript"></script>
+    <script src="vendor/jquery-ui.js" type="text/javascript"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="board.js" type="text/javascript"></script>
+    <script src="board_view_model.js" type="text/javascript"></script>
+    <link href="vendor/bootstrap/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="mine_sweeper.css" media="all" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="container">
+    <div id="headline">
+        <img src="vendor/images/minesweeper_logo.png"/>
+    </div>
+    <div id="board" class="board">
+    </div>
+    <div class="button-group">
+        <a id="new-game" class="game-button">
+        </a>
+        <span id="message"></span>
+        <a id="validate" class="game-button pull-right">
+            <img src="vendor/images/smile_1.png"/>
+        </a>
+
+    </div>
+
+    <div class="footer">
+        <small>
+            Built with <a href="http://jquery.com/">jQuery</a>,
+            <a href="http://twitter.github.io/bootstrap/2.3.2/index.html">Bootstrap 2.3.2</a>,
+            <a href="http://findicons.com/pack/360/emoticons">FindIcons</a>,
+            <a href="http://www.flamingtext.com/">FlamingText Free Logos</a>,
+            <a href="http://www.iconfinder.com/icondetails/1232/128/bomb_explosive_icon">Icon Finder</a>,
+            <a href="http://www.colorzilla.com/gradient-editor/">ColorZilla Gradient Editor</a>.
+            &copy; 2013 Wolfram Arnold
+        </small>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //<![CDATA[
+    window.boardViewModel = new BoardViewModel(new Board());
+
+    $(document).ready(function () {
+        boardViewModel.startGame();
+    });
+    //]]>
+</script>
+
+</body>
+</html>
