@@ -107,7 +107,8 @@ BoardViewModel = (function () {
         },
 
         newGame: function () {
-            this.board.reset();
+            var newMineCount = parseInt($("input[name=level]:checked").val());
+            this.board.reset(newMineCount);
             this.resetTiles();
             $('#message').removeClass();
             this.gameInProgress = true;

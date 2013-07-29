@@ -24,7 +24,10 @@ Board = (function () {
             }
         },
 
-        reset: function() {
+        reset: function(newMineCount) {
+            console.log ('new mine count', newMineCount)
+            if (newMineCount) Board.mineCount = newMineCount;
+            console.log ('Board.mineCount', Board.mineCount)
             for (var row = 0; row < Board.edgeLength; ++row) {
                 for (var col = 0; col < Board.edgeLength; ++col) {
                     this.mineMap[row][col] = undefined;
