@@ -17,23 +17,22 @@ BoardViewModel = (function () {
             this.drawTiles();
             $('#validate').click(this.validateGame.bind(this));
             $('#new-game').click(this.newGame.bind(this));
+            $('#hint').click(this.showMines.bind(this));
         },
 
         revealTile: function (row, col) {
             this.tileStates[row][col] = 'revealed';
             var tile = $('#row' + row + 'col' + col).addClass('revealed');
-            if (this.board.mineMap[row][col] == 'B') {
-                tile.addClass('mine');
-            } else {
+            if (this.board.mineMap[row][col] != 'B') {
                 tile.find('span').text(this.board.mineMap[row][col]);
             }
         },
 
-        revealRemainingTiles: function() {
+        revealRemainingTiles: function () {
             for (var row = 0; row < Board.edgeLength; ++row) {
                 for (var col = 0; col < Board.edgeLength; ++col) {
                     if (this.tileStates[row][col] == 'covered')
-                        this.revealTile(row,col);
+                        this.revealTile(row, col);
                 }
             }
         },
@@ -53,19 +52,21 @@ BoardViewModel = (function () {
 
         drawTiles: function () {
             var edge = 50;
-            $('.board').css('height', edge * Board.edgeLength)
+            $('#board').css('height', edge * Board.edgeLength)
                 .css('width', edge * Board.edgeLength);
             for (var row = 0; row < Board.edgeLength; ++row) {
                 this.tileStates.push(new Array(Board.edgeLength));
                 for (var col = 0; col < Board.edgeLength; ++col) {
                     this.tileStates[row][col] = 'covered';
-                    $('<div><span></span></div>').appendTo('#board')
+                    var tile = $('<div><span></span></div>').appendTo('#board')
                         .addClass('tile')
                         .attr('id', 'row' + row + 'col' + col)
                         .css('top', (edge * row) + 'px')
                         .css('left', (edge * col ) + 'px')
-//                        .css('left', (edge * col - halfBoardLength) + 'px')
                         .data({row: row, col: col});
+                    if (this.board.mineMap[row][col] == 'B') {
+                        tile.addClass('mine');
+                    }
                 }
             }
             var instance = this;
@@ -75,12 +76,23 @@ BoardViewModel = (function () {
         },
 
         resetTiles: function () {
+            $('.tile').removeClass('revealed mine').find('span').text('');
             for (var row = 0; row < Board.edgeLength; ++row) {
                 for (var col = 0; col < Board.edgeLength; ++col) {
-                    this.tileStates[row][col] = 'covered';
-                    $('#row' + row + 'col' + col).removeClass("revealed mine").find('span').text('');
+                    this.tileStates[row][col] = 'covered'
+                    if (this.board.mineMap[row][col] == 'B') {
+                        $('#row' + row + 'col' + col).addClass('mine');
+                    }
                 }
             }
+        },
+
+        showMines: function () {
+            if (!this.gameInProgress) return;
+            $('.mine').addClass('revealed');
+            setTimeout(function () {
+                $('.mine').removeClass('revealed');
+            }, 500);
         },
 
         processClick: function (tile, event) {
@@ -95,8 +107,8 @@ BoardViewModel = (function () {
         },
 
         newGame: function () {
-            this.resetTiles();
             this.board.reset();
+            this.resetTiles();
             $('#message').removeClass();
             this.gameInProgress = true;
         },

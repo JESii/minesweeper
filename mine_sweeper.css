@@ -6,9 +6,30 @@ body {
     text-align: center;
 }
 
-.board {
+#board {
     position: relative;
     margin: 0 auto;
+}
+
+#hint {
+    position: absolute;
+    display: inline-block;
+    right: -183px;
+    top: 168px;
+    width: 147px;
+    height: 78px;
+}
+
+a#hint {
+    background: url(vendor/images/hint.png) center center no-repeat;
+}
+a#hint:hover, a#hint:visited {
+    background: url(vendor/images/hint_hover.png) center center no-repeat;
+    cursor: pointer;
+}
+a#hint:active {
+    background: url(vendor/images/hint_active.png) center center no-repeat;
+    cursor: pointer;
 }
 
 .tile {
@@ -33,13 +54,13 @@ body {
 }
 
 
-.tile.mine {
-    background: url(vendor/images/bomb.png) no-repeat center, linear-gradient(135deg, rgba(243,247,14,1) 23%,rgba(255,103,15,1) 69%);
-}
-
-.revealed {
+.tile.revealed {
     background-color: lightgray;
     background-image: linear-gradient(135deg, rgba(243,247,14,1) 23%,rgba(255,103,15,1) 69%);
+}
+
+.tile.mine.revealed {
+    background: url(vendor/images/bomb.png) no-repeat center, linear-gradient(135deg, rgba(243,247,14,1) 23%,rgba(255,103,15,1) 69%);
 }
 
 .button-group {
@@ -72,6 +93,7 @@ body {
 a#new-game {
     background: url(vendor/images/new_game.png) center center no-repeat;
 }
+
 a#new-game:hover, a#new-game:visited {
     background: url(vendor/images/new_game_hover.png) center center no-repeat;
     cursor: pointer;
